@@ -1,0 +1,1 @@
+/usr/bin/python ~/OPS/email_cron_dir/monitoring_ADB_check.py | mail -s "ADB DOWN Machines Check : $(date +'%d %b %Y %r')" sgumgeri@akamai.com,gyadav@akamai.com,bfakrudd@akamai.com,hshekhar@akamai.com,analyticsdb@akamai.com -a "From: automon-media@akamai.com"
