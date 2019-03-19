@@ -83,7 +83,7 @@ query_control_server = '''
     FROM adb_input_mon a, 
          dna_machines d
    WHERE a.dir_name NOT IN ('/ghostcache/analyticsdb/backup/error')
-         AND d.dnsname in ('adbcs1.east.dna.akamai.com','adbcs2.east.dna.akamai.com', 'adbcs1.central.dna.akamai.com', 'adbcs2.central.dna.akamai.com')
+         
          AND a.ip = d.ip
          AND a.num_files > 0
    ORDER BY 5 DESC;  
@@ -120,7 +120,7 @@ a.dir_name Not IN ('/ghostcache/analyticsdb/backup/error')   AND  (a.total_size 
 # SELECT d.ip, tonum(time) time, dir_name, num_files, total_size, max_size, replica
 #     FROM adb_input_mon a,
 #                dna_machines d 
-# where d.dnsname in ('adb304.east.dna.akamai.com','adb354.east.dna.akamai.com')
+
 # group by 1,3
 # order by 4 desc;
 # \n'''
@@ -163,7 +163,7 @@ def send_mail():
     human_readable_string = strftime("%d %b %Y", current_time)
 
     TEXT = "<html><head></head><body>"
-    TEXT = TEXT + "<p>NOTE : This Mail is sent to below Mailing list : sgumgeri@akamai.com;gyadav@akamai.com; bfakrudd@akamai.com; ramyan@akamai.com; rmorarka@akamai.com; sanrao@akamai.com; analyticsdb@akamai.com; hshekhar@akamai.com; lbabu@akamai.com</p>"
+    TEXT = TEXT + "<p>NOTE : This Mail is sent to below Mailing list : </p>"
     TEXT = TEXT + "<p>Hi ALL</p>"
     
     
@@ -190,7 +190,7 @@ def send_mail():
         TEXT = TEXT + "</tr>\n"
         row = row + 1
         column = 0
-    TEXT = TEXT + "<p><br />--------- ADB Over all Monitoring Sorted By backlog_size_GB ----------------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=b730</p>"
+    TEXT = TEXT + "<p><br />--------- ADB Over all Monitoring Sorted By backlog_size_GB ----------------------------</p>\nQuery Link : </p>"
 
 
     
@@ -203,7 +203,7 @@ def send_mail():
             for each_column in each_line.split():
                 TEXT = TEXT + "<td align='left' style='border-right: 1px dashed black; border-collapse: collapse;'> " + each_column + "</td>\n"
         TEXT = TEXT + "</tr>\n"    
-    TEXT = TEXT + "<p><br />--------- Control Server Sorted By backlog_size_GB----------------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=a8f1 </p>"
+    TEXT = TEXT + "<p><br />--------- Control Server Sorted By backlog_size_GB----------------------------</p>\nQuery Link :  </p>"
 
     row = 1
     column = 0    
@@ -251,7 +251,7 @@ def send_mail():
     #     TEXT = TEXT + "</tr>\n"
     #     row = row + 1
     #     column = 0  
-    # TEXT = TEXT + "<p><br />-------------------------DLA Machines EAST--------------------------------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=a8f0</p>"
+    # TEXT = TEXT + "<p><br />-------------------------DLA Machines EAST--------------------------------------------</p>\nQuery Link : </p>"
 
 
     TEXT = TEXT + "</table>\n<br /><p> Regards <br/>DNA System Operation Team</p>\n</div>\n</body>\n</html>"  
@@ -262,9 +262,9 @@ def send_mail():
     msg = MIMEText(TEXT,'html')
     msg['Subject'] = "2. Monitoring BACKLOG on ADB & DLA Machines : "+ human_readable_string
     # Send the mail
-    FROM = 'automon-media@akamai.com'
-    #TO = ['sgumgeri@akamai.com'] #['ramyan@akamai.com', 'pajoseph@akamai.com']
-    TO = ['sgumgeri@akamai.com','gyadav@akamai.com', 'bfakrudd@akamai.com', 'hshekhar@akamai.com', 'agoyal@akamai.com', 'ramyan@akamai.com', 'rmorarka@akamai.com', 'vsanaka@akamai.com', 'sanrao@akamai.com', 'analyticsdb@akamai.com', 'lbabu@akamai.com']
+    FROM = ''
+    
+    TO = ''
     mailer = smtplib.SMTP('')
     mailer.connect()
     mailer.sendmail(FROM, TO, msg.as_string())
