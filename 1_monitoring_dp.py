@@ -108,7 +108,7 @@ SELECT machine_ip ip_key,
          AND  (total_size / (1000 * 1000  )  >  500 or  num_files > 250)
          AND directory_name not like '%/dpdone/%'
          AND (latest_timestamp - oldest_timestamp)/(3600) > 4
-         AND directory_name not like '/usr/local/akamai/logs/fblb/'
+         AND directory_name not like '/usr/local/<PATH>/logs/fblb/'
          AND NOT directory_name SIMILAR '^.*work\/$'
          AND NOT directory_name SIMILAR '^.*index\/$'
          AND status = 'ACTIVE'
@@ -261,7 +261,7 @@ def send_mail():
     human_readable_string = strftime("%d %b %Y", current_time)
 
     TEXT = "<html><head></head><body>"
-    TEXT = TEXT + "<p>NOTE : This Mail is sent to below Mailing list : sgumgeri@akamai.com; bfakrudd@akamai.com; lbabu@akamai.com; hshekhar@akamai.com; sreddy@akamai.com; shkundap@akamai.com; sanrao@akamai.com; rchoudhu@akamai.com ;gyadav@akamai.com;sasati@akamai.com</p>"
+    TEXT = TEXT + "<p>NOTE : This Mail is sent to below Mailing list : EMAIL_ID</p>"
     TEXT = TEXT + "<p>Hi ALL</p>"
     
     
@@ -276,7 +276,7 @@ def send_mail():
                 
                 TEXT = TEXT + "<td align='left' style='border-right: 1px dashed black; border-collapse: collapse;'> " + each_column + "</td>\n"
         TEXT = TEXT + "</tr>\n"
-    TEXT = TEXT + "<p><br />------------------------ Monitoring FBLB & DP DOWN Machines - I ------------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=abf4</p>"
+    TEXT = TEXT + "<p><br />------------------------ Monitoring FBLB & DP DOWN Machines - I ------------------------</p>\nQuery Link : <link></p>"
 
 
     
@@ -291,7 +291,7 @@ def send_mail():
                 
                 TEXT = TEXT + "<td align='left' style='border-right: 1px dashed black; border-collapse: collapse;'> " + each_column + "</td>\n"
         TEXT = TEXT + "</tr>\n"    
-    TEXT = TEXT + "<p><br />------------------------ Monitoring FBLB & DP DOWN Machines - II ------------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=b695 </p>"
+    TEXT = TEXT + "<p><br />------------------------ Monitoring FBLB & DP DOWN Machines - II ------------------------</p>\nQuery Link : LINK </p>"
 
     
     lines_of_file =  execute_DP_monitor()
@@ -326,7 +326,7 @@ def send_mail():
         TEXT = TEXT + "</tr>\n"
         row = row + 1
         column = 0
-    TEXT = TEXT + "<p><br />------------------------ Monitoring FBLB & DP Machines ---------------------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=a9ec</p>"
+    TEXT = TEXT + "<p><br />------------------------ Monitoring FBLB & DP Machines ---------------------------------</p>\nQuery Link : LINK</p>"
 
 #########################################
     lines_of_file =  execute_query_VD_Down_machine_check()
@@ -343,7 +343,7 @@ def send_mail():
         TEXT = TEXT + "</tr>\n"
         row = row + 1
 
-    TEXT = TEXT + "<p><br />----------- Monitoring VD Down Machine ----------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=fa2f</p>"
+    TEXT = TEXT + "<p><br />----------- Monitoring VD Down Machine ----------------------</p>\nQuery Link :LINK</p>"
 
 ###############################################
     lines_of_file =  execute_FBLB_RTProc_Backlog()
@@ -360,7 +360,7 @@ def send_mail():
         TEXT = TEXT + "</tr>\n"
         row = row + 1
 
-    TEXT = TEXT + "<p><br />----------- Monitoring FBLB-RTProc Backlog '*/fblb_pull/toscp/*' ----------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=a9fe</p>"
+    TEXT = TEXT + "<p><br />----------- Monitoring FBLB-RTProc Backlog '*/fblb_pull/toscp/*' ----------------------</p>\nQuery Link : LINK</p>"
 
     lines_of_file =  execute_outgoing_dir()
     # print lines_of_file     
@@ -373,7 +373,7 @@ def send_mail():
                 
                 TEXT = TEXT + "<td align='left' style='border-right: 1px dashed black; border-collapse: collapse;'> " + each_column + "</td>\n"
         TEXT = TEXT + "</tr>\n"
-    TEXT = TEXT + "<p><br />--------------------- Monitoring '/downloader/outgoing' directory -----------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=9fc3</p>"
+    TEXT = TEXT + "<p><br />--------------------- Monitoring '/downloader/outgoing' directory -----------------------</p>\nQuery Link :LINK</p>"
 
     lines_of_file =  execute_1day_stats()
     # print lines_of_file     
@@ -386,7 +386,7 @@ def send_mail():
                 
                 TEXT = TEXT + "<td align='left' style='border-right: 1px dashed black; border-collapse: collapse;'> " + each_column + "</td>\n"
         TEXT = TEXT + "</tr>\n"
-    TEXT = TEXT + "<p><br />-------------------------Previous Day stats -------------------------------------------</p>\nQuery Link : https://www.nocc.akamai.com/miniurl/?id=9fc4</p>"
+    TEXT = TEXT + "<p><br />-------------------------Previous Day stats -------------------------------------------</p>\nQuery Link : LINK</p>"
 
 
 
@@ -398,9 +398,8 @@ def send_mail():
     msg = MIMEText(TEXT,'html')
     msg['Subject'] = "1. Monitoring DP Machines : "+ human_readable_string
     # Send the mail
-    FROM = 'automon-media@akamai.com'
-    #TO = ['sgumgeri@akamai.com','bfakrudd@akamai.com'] 
-    TO = ['sasati@akamai.com','sgumgeri@akamai.com','gyadav@akamai.com', 'bfakrudd@akamai.com', 'sreddy@akamai.com', 'shkundap@akamai.com','lbabu@akamai.com', 'hshekhar@akamai.com', 'sanrao@akamai.com', 'rchoudhu@akamai.com']
+    FROM = ''
+    TO = ''
     mailer = smtplib.SMTP('')
     mailer.connect()
     mailer.sendmail(FROM, TO, msg.as_string())
